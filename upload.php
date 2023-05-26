@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="style.css">
     <style>
         img{
-            width:200px;
+            width:150px;
             border:10px solid black;
             margin:3px;
         }
@@ -51,10 +51,35 @@ $pdo=new PDO($dsn,'root','');
 $sql="select * from `images` ";
 $imgs=$pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 
-foreach($imgs as $img){
-    echo "<img src='./img/{$img['img']}'>";
+?>
+<table>
+    <tr>
+        <td>序號</td>
+        <td>縮圖</td>
+        <td>檔名</td>
+        <td>類別</td>
+        <td>大小</td>
+        <td>操作</td>
+    </tr>
+<?php 
+foreach($imgs as $idx => $img){
+?>
+    <tr>
+        <td><?=$idx+1;?></td>
+        <td><img src="./img/<?=$img['img'];?>"></td>
+        <td><?=$img['img'];?></td>
+        <td><?=$img['type'];?></td>
+        <td><?=$img['size'];?></td>
+        <td>
+            <button>編輯</button>    
+            <button>刪除</button>    
+        </td>
+    </tr>
+<?php
 }
 ?>
+</table>
+
 
 </body>
 </html>
