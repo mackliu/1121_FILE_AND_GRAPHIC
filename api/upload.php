@@ -17,7 +17,8 @@ if($_FILES['img']['error']==0){
     
     move_uploaded_file($_FILES['img']['tmp_name'],"../img/".$name);
 
-    $sql="insert into `images` (`img`,`desc`) values('$name','{$_POST['desc']}')";
+    $sql="insert into `images` (`img`,`desc`,`type`,`size`) 
+                        values('$name','{$_POST['desc']}','{$_FILES['img']['type']}','{$_FILES['img']['size']}')";
 
     $pdo->exec($sql);
     

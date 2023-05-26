@@ -21,6 +21,13 @@
             border:10px solid black;
             margin:3px;
         }
+        table{
+            border-collapse: collapse;
+        }
+        table td{
+            padding:10px 20px;
+            border:1px solid #ccc;
+        }
     </style>
 </head>
 <body>
@@ -68,11 +75,29 @@ foreach($imgs as $idx => $img){
         <td><?=$idx+1;?></td>
         <td><img src="./img/<?=$img['img'];?>"></td>
         <td><?=$img['img'];?></td>
-        <td><?=$img['type'];?></td>
-        <td><?=$img['size'];?></td>
         <td>
-            <button>編輯</button>    
-            <button>刪除</button>    
+            <?php
+            switch($img['type']){
+
+                case 'image/jpeg':
+                    echo "jpg";
+                break;
+                case 'image/png':
+                    echo "png";
+                break;
+                case 'image/bmp':
+                    echo "bmp";
+                break;
+                case 'image/gif':
+                    echo "gif";
+                break;
+            }
+            ?>
+        </td>
+        <td><?=floor($img['size']/1024);?>KB</td>
+        <td>
+            <button onclick="location.href='./update.php?id=<?=$img['id'];?>'">編輯</button>    
+            <button onclick="location.href='./api/del_file.php?id=<?=$img['id'];?>'">刪除</button>    
         </td>
     </tr>
 <?php
