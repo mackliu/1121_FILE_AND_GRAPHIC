@@ -19,7 +19,18 @@
 <body>
  <h1 class="header">檔案上傳練習</h1>
  <!----建立你的表單及設定編碼----->
+<form action="./api/upload.php" method="post" enctype="multipart/form-data">
+<div>
+    上傳檔案: <input type="file" name="img" id="img">
+</div>
+<div>
+    描述: <input type="text" name="desc" id="desc">
+</div>
+<div>
+    <input type="submit" value="上傳">
+</div>
 
+</form>
 
 
 
