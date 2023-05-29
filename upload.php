@@ -73,7 +73,27 @@ foreach($imgs as $idx => $img){
 ?>
     <tr>
         <td><?=$idx+1;?></td>
-        <td><img src="./img/<?=$img['img'];?>"></td>
+        <td>
+        <?php 
+            switch($img['type']){
+                case 'image/jpeg':
+                case 'image/png':
+                case 'image/bmp':
+                case 'image/gif':
+                    echo "<img src='./img/{$img['img']}'>";
+                break;
+                case 'application/octet-stream':
+                    echo "<img src='./icon/sql.png'>";
+                break;
+                case 'application/x-zip-compressed':
+                    echo "<img src='./icon/zip.png'>";
+                break;
+            }
+        
+
+        ?>
+        </td>
+        
         <td><?=$img['img'];?></td>
         <td>
             <?php
@@ -91,6 +111,12 @@ foreach($imgs as $idx => $img){
                 case 'image/gif':
                     echo "gif";
                 break;
+                case 'application/octet-stream':
+                    echo "sql";
+                break;
+                case 'application/x-zip-compressed':
+                    echo "zip";
+                break;                
             }
             ?>
         </td>
