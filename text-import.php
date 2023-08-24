@@ -1,3 +1,18 @@
+<style>
+
+table{
+    border:1px solid #ccc;
+    box-shadow: 3px 3px 15px #aaa;
+    padding:20px;
+    border-collapse: collapse;
+}    
+
+td{
+    border:1px solid #ccc;
+    padding:5px 10px;
+    text-align: center;
+}
+</style>
 <?php
 /****
  * 1.建立資料庫及資料表
@@ -20,18 +35,27 @@ if(!empty($_FILES['text']['tmp_name'])){
     $path="./document/{$_FILES['text']['name']}";
     // 使用 'r' 模式來讀取檔案
 $file = fopen($path, "r");
-
+echo "<table>";
 if ($file) {
     // 讀取檔案到最後
     while (($line = fgets($file)) !== false) {
-        echo $line;
-        echo "<br>";
+        echo "<tr>";
+        $cols=explode(",",$line);
+        for($i=0;$i<count($cols);$i++){
+            echo "<td>";
+            echo $cols[$i];
+            echo "</td>";
+        }
+        
+        echo "</tr>";
     }
     fclose($file);
 } else {
     // 檔案開啟失敗
     echo "檔案開啟失敗";
 }
+
+echo "</table>";
 }
 
 ?>
