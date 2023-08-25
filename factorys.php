@@ -9,6 +9,8 @@
 </head>
 <body>
 <h1>觀光工廠名單</h1>    
+<button class="export">匯出</button>
+<div class='download'></div>
 <table>
 <tr>
     <td><input type="checkbox" class='select-all'>全選</td>
@@ -46,4 +48,21 @@ $(".select-all").on("change",function(){
 })
 
 
+$(".export").on("click",function(){
+    if($(".chk").is(":checked")){
+        let data=new Array();
+        $(".chk").each((idx,el)=>{
+            if($(el).is(":checked")){
+                data.push($(el).val());
+            }
+        })
+
+        console.log(data)
+        $.post("./api/export.php",{data},(download)=>{
+            $('.download').html(download)
+        })
+    }else{
+        alert("還沒有選取任何項目，不需匯出")
+    }
+})
 </script>
