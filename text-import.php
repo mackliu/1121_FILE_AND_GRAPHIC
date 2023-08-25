@@ -1,4 +1,6 @@
+<?php include_once "DB.php";?>
 <style>
+
 
 table{
     border:1px solid #ccc;
@@ -13,6 +15,27 @@ td{
     text-align: center;
 }
 </style>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>文字檔案匯入</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1 class="header">文字檔案匯入練習</h1>
+<!---建立檔案上傳機制--->
+<form action="?" method="post" enctype="multipart/form-data">
+<input type="file" name="text" id="text">
+<input type="submit" value="上傳">
+
+</form>
+
+
+<!----讀出匯入完成的資料----->
 <?php
 /****
  * 1.建立資料庫及資料表
@@ -37,17 +60,47 @@ if(!empty($_FILES['text']['tmp_name'])){
 $file = fopen($path, "r");
 echo "<table>";
 if ($file) {
-    // 讀取檔案到最後
-    while (($line = fgets($file)) !== false) {
-        echo "<tr>";
+    //處理第一列抬頭列
+    $line = fgets($file);
+    if($line!==false){
         $cols=explode(",",$line);
+    
         for($i=0;$i<count($cols);$i++){
             echo "<td>";
             echo $cols[$i];
             echo "</td>";
         }
-        
+        echo "<td>";
+        echo "狀態";
+        echo "</td>";
+    }
+    // 讀取檔案到最後
+    $count=0;
+    while (($line = fgets($file)) !== false) {
+        echo "<tr>";
+        $cols=explode(",",$line);
+        $sql=$db->save([
+            'area'=>$cols[1], 
+            'city'=>$cols[2], 
+            'name'=>$cols[3], 
+            'address'=>$cols[4], 
+            'telephone'=>$cols[5], 
+            'url'=>$cols[6], 
+        ]);
+
+        for($i=0;$i<count($cols);$i++){
+            echo "<td>";
+            echo $cols[$i];
+            echo "</td>";
+        }
+        if($sql>0){
+            echo "<td>成功</td>";
+        }else{
+            echo "<td>失敗</td>";
+        }
         echo "</tr>";
+
+        $count++;
     }
     fclose($file);
 } else {
@@ -56,30 +109,10 @@ if ($file) {
 }
 
 echo "</table>";
+echo "合計匯入資料表筆數:$count 筆";
 }
 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>文字檔案匯入</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-<h1 class="header">文字檔案匯入練習</h1>
-<!---建立檔案上傳機制--->
-<form action="?" method="post" enctype="multipart/form-data">
-<input type="file" name="text" id="text">
-<input type="submit" value="上傳">
-
-</form>
-
-
-<!----讀出匯入完成的資料----->
-
 
 
 </body>
