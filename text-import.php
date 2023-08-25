@@ -67,7 +67,7 @@ if ($file) {
     
         for($i=0;$i<count($cols);$i++){
             echo "<td>";
-            echo $cols[$i];
+            echo $cols[$i]; 
             echo "</td>";
         }
         echo "<td>";
