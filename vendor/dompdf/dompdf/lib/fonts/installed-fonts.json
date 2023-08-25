@@ -1,0 +1,14 @@
+{
+    "dfhaibaostd-w9": {
+        "normal": "F:\\upload\\vendor\\dompdf\\dompdf\/lib\/fonts\/DFHaiBaoStd-W9",
+        "bold": "F:\\upload\\vendor\\dompdf\\dompdf\/lib\/fonts\/DFHaiBaoStd-W9",
+        "italic": "F:\\upload\\vendor\\dompdf\\dompdf\/lib\/fonts\/DFHaiBaoStd-W9",
+        "bold_italic": "F:\\upload\\vendor\\dompdf\\dompdf\/lib\/fonts\/DFHaiBaoStd-W9"
+    },
+    "ttc": {
+        "normal": "F:\\upload\\vendor\\dompdf\\dompdf\/lib\/fonts\/TaipeiSansTCBeta-Regular",
+        "bold": "F:\\upload\\vendor\\dompdf\\dompdf\/lib\/fonts\/TaipeiSansTCBeta-Regular",
+        "italic": "F:\\upload\\vendor\\dompdf\\dompdf\/lib\/fonts\/TaipeiSansTCBeta-Regular",
+        "bold_italic": "F:\\upload\\vendor\\dompdf\\dompdf\/lib\/fonts\/TaipeiSansTCBeta-Regular"
+    }
+}

@@ -8,21 +8,28 @@ $options = new Options();
 $options->set("isPhpEnabled", true);
 $dompdf = new Dompdf();
 
-
+//$font=$dompdf->getFontMetrics()->getFont("華康方圓體 Std W7","reqular");
 $sql="select * from `factory` where id in(".join(",",$_POST['data']).")";
 $data=$db->q($sql);
 $file=fopen("../export.csv",'w+');
 fwrite($file, "\xEF\xBB\xBF");
-$html="<div style=font-family:'微軟正黑體'>序號,地區別,縣市,觀光工廠名稱,地址,觀光工廠預約電話,網址\n";
+$html="";
 fwrite($file,$html);
 foreach($data as $row){
    $str=join(",",$row);
-   $html.=$str;
+   $html.=$str."<br>";
    fwrite($file,$str);
 }
 
 
-$dompdf->loadHtml($html."</div>");
+$dompdf->loadHtml(
+   '<style>
+      *{
+         font-family:"TTC"
+      }
+    </style>'.$html
+
+);
 $dompdf->render();
 $output = $dompdf->output();
 file_put_contents('../export.pdf', $output);
