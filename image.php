@@ -12,16 +12,23 @@
 if(!empty($_FILES['img']['tmp_name'])){
     $file="re_".$_FILES['img']['name'];
     move_uploaded_file($_FILES['img']['tmp_name'],"./img/".$file);
+    echo "<img src='./img/$file'>";
+
     $percent=0.5;
+
+    $border=10;
+
     list($width,$height)=getimagesize("./img/".$file);
     list($new_width,$new_height)=[$width*$percent,$height*$percent];
 
     $src_image=imagecreatefromjpeg("./img/".$file);
     $dst_image=imagecreatetruecolor($new_width,$new_height);
-
-    imagecopyresampled($dst_image,$src_image,0,0,0,0,$new_width,$new_height,$width,$height);
+    $blue=imagecolorallocate($dst_image,78,103,253);
+    imagefill($dst_image,0,0,$blue);
+    imagecopyresampled($dst_image,$src_image,10,10,0,0,$new_width-($border*2),$new_height-($border*2),$width,$height);
     
     imagejpeg($dst_image,"./img/small_".$file);
+    echo "<img src='./img/small_{$file}'>";
 }
 
 
