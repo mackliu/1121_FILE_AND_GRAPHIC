@@ -9,6 +9,21 @@
  *   ->圖形驗證碼
  * 5.輸出檔案
  */
+if(!empty($_FILES['img']['tmp_name'])){
+    $file="re_".$_FILES['img']['name'];
+    move_uploaded_file($_FILES['img']['tmp_name'],"./img/".$file);
+    $percent=0.5;
+    list($width,$height)=getimagesize("./img/".$file);
+    list($new_width,$new_height)=[$width*$percent,$height*$percent];
+
+    $src_image=imagecreatefromjpeg("./img/".$file);
+    $dst_image=imagecreatetruecolor($new_width,$new_height);
+
+    imagecopyresampled($dst_image,$src_image,0,0,0,0,$new_width,$new_height,$width,$height);
+    
+    imagejpeg($dst_image,"./img/small_".$file);
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -24,7 +39,15 @@
 <h1 class="header">圖形處理練習</h1>
 <!---建立檔案上傳機制--->
 
+<form action="?" method="post" enctype="multipart/form-data">
+<div>
+    上傳檔案: <input type="file" name="img" id="img">
+</div>
+<div>
+    <input type="submit" value="上傳">
+</div>
 
+</form>
 
 <!----縮放圖形----->
 
